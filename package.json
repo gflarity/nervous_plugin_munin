@@ -1,0 +1,36 @@
+{
+  "name": "nervous_plugin_munin",
+  "preferGlobal": false,
+  "version": "0.1.0",
+  "author": "Geoff Flarity <geoff.flarity@gmail.com>",
+  "description": "munin plugin for Nervous",
+  "contributors": [ 
+    {
+      "name": "Geoff Flarity",
+      "email": "geoff.flarity@gmail.com"
+    } 
+  ],
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gflarity/nervous_plugin_munin.git"
+  },
+  "keywords": [
+    "nervous", 
+    "monitoring",
+    "plugable",
+    "plugin",
+    "munin"
+  ],
+  "dependencies" : { 
+  },
+  "noAnalyze": true,
+  "devDependencies": {
+  },
+  "bundleDependencies": [
+  ],
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
+}
