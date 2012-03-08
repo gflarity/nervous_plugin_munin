@@ -35,10 +35,8 @@ module.exports = function( axon ) {
         };
         tcp_connection.on( 'connect', on_connect );
                 
-        
         var new_connection = function( data ) {           
             
-            debugger;
             if ( data.indexOf( 'munin node' ) === -1 ) {                
                 emit( 'error', 'bad handshake: ' + data );    
             }
@@ -50,12 +48,10 @@ module.exports = function( axon ) {
             }
         };
         
-        
-        
         var fetch_next = function() {
             
             var next_category = metric_categories.pop();
-            debugger;
+
             if ( next_category ) {
 
                 current_category = next_category;
@@ -66,7 +62,6 @@ module.exports = function( axon ) {
                 return;
             }            
         };
-        
         
         //this function handles a processing the response to a list command
         var list_buffer = '';
@@ -85,7 +80,6 @@ module.exports = function( axon ) {
             }
         };
         
-        
         //this function processes the response from a fetch request
         var fetch_buffer = '';
         var fetch_response = function( data ) {
@@ -96,7 +90,6 @@ module.exports = function( axon ) {
                 return;
             }
             
-            debugger;
             var lines = fetch_buffer.split('\n');
             // ''
             lines.pop();
@@ -150,6 +143,6 @@ module.exports = function( axon ) {
         tcp_connection.on( 'data', on_data );
         
     };
-    setTimeout( check_stats, config.interval );
+    setInterval( check_stats, config.interval );
   
 };
