@@ -56,7 +56,7 @@ module.exports = function( axon ) {
 
                 current_category = next_category;
                 
-                fetch_time = new Date().getTime();    
+                fetch_time = Math.round( new Date().getTime()/1000 );    
                 tcp_connection.write( 'fetch ' + next_category + '\n' );  
                 state = 'fetch_response';
                 return;
