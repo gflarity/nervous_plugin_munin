@@ -135,9 +135,6 @@ module.exports = function( axon ) {
                     var name = current_category + multigraph + '.' + match[1];
                     var value = match[2];
                     axon.emit( 'data', name, value, fetch_time );                    
-                    
-                    //reset the multigraph just incase
-                    multigraph = '';
                 }                
             }
             
