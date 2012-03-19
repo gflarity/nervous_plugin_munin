@@ -105,24 +105,39 @@ module.exports = function( axon ) {
                 return;
             }
         
-            debugger;
+            
             var lines = fetch_buffer.split('\n');
+
             // ''
             lines.pop();
             // '.'
             lines.pop();
+
+        
+            //some categories contain 'multigraphs'...
+            var multigraph = '';
             
             //loop through lines
             for ( var i = 0; i< lines.length; i++ ) {
                 
                 var line = lines[i];
-            
+                debugger;            
+                //if we see a muligraph the values that value will be sub values
+                var multigraph_match = line.match( /^multigraph (.*)/ )
+                if (multigraph_match) {
+                    multigraph = '.'+ multigraph_match[1];
+                    continue;
+                }
+                
                 var match = line.match( /(\w+).value (.+)/ )
                 if ( match ) {
                     
-                    var name = current_category + '.' + match[1];
+                    var name = current_category + multigraph + '.' + match[1];
                     var value = match[2];
                     axon.emit( 'data', name, value, fetch_time );                    
+                    
+                    //reset the multigraph just incase
+                    multigraph = '';
                 }                
             }
             
