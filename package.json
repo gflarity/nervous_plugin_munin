@@ -1,7 +1,7 @@
 {
   "name": "nervous_plugin_munin",
   "preferGlobal": false,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Geoff Flarity <geoff.flarity@gmail.com>",
   "description": "munin plugin for Nervous",
   "contributors": [
