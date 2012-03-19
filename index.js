@@ -42,11 +42,25 @@ module.exports = function( axon ) {
             }
             else {
                 
-                 tcp_connection.write( 'list\n' );            
+                 tcp_connection.write( 'cap multigraph foo\n' );            
                 //indicate we're waiting for a list data
-                state = 'list_response';    
+                state = 'cap_response';    
             }
         };
+        
+        var cap_buffer;
+        var cap_response = function( data ) {
+            
+            cap_buffer += data;
+                            
+            //still more to read
+            if ( data.indexOf( '\n' ) !== -1 ) {                
+                tcp_connection.write( 'list\n' );             
+                state = 'list_response';
+            }
+            
+        };
+        
         
         var fetch_next = function() {
             
@@ -68,14 +82,14 @@ module.exports = function( axon ) {
         var list_response = function( data ) {
         
             list_buffer += data;
-            
+                            
             //still more to read
             if ( data.indexOf( '\n' ) !== -1 ) {
-                            
+                                
                 var lines = list_buffer.split( '\n' );
-                var list = lines[0];
+                var list = lines[0];                
                 metric_categories = list.split( ' ' );
-                
+                debugger;
                 fetch_next();
             }
         };
@@ -84,12 +98,10 @@ module.exports = function( axon ) {
         var fetch_buffer = '';
         var fetch_response = function( data ) {
             
-            fetch_buffer += data;
             //still more to read
             if ( data.indexOf( '.\n' ) === -1 ) {
                 return;
             }
-            
             var lines = fetch_buffer.split('\n');
             // ''
             lines.pop();
@@ -123,6 +135,11 @@ module.exports = function( axon ) {
                     new_connection( data );
                     break;
                     
+                case 'cap_response':
+                    
+                    cap_response( data );
+                    break;
+
                 case 'list_response':
                     
                     list_response( data );
