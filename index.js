@@ -63,7 +63,7 @@ module.exports = function( axon ) {
         
         
         var fetch_next = function() {
-            
+
             var next_category = metric_categories.pop();
 
             if ( next_category ) {
@@ -97,11 +97,15 @@ module.exports = function( axon ) {
         //this function processes the response from a fetch request
         var fetch_buffer = '';
         var fetch_response = function( data ) {
-            
+        
+            fetch_buffer += data
+        
             //still more to read
             if ( data.indexOf( '.\n' ) === -1 ) {
                 return;
             }
+        
+            debugger;
             var lines = fetch_buffer.split('\n');
             // ''
             lines.pop();
